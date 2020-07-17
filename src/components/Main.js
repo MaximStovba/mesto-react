@@ -1,13 +1,9 @@
-import React from 'react';
-import logo from './images/header__logo.svg';
+// Main.js
 
-function App() {
+import React from 'react';
+
+function Main() {
   return (
-    <>
-    <div class="page">
-    <header class="header">
-      <img src={logo} alt="Логотип" class="header__logo" />
-    </header>
     <main class="content">
       <section class="profile">
         <div class="profile__avatar-container">
@@ -74,21 +70,7 @@ function App() {
         </figure>
       </section>
     </main>
-    <footer class="footer">
-      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
-    </footer>
-  </div>
-  <template id="card">
-    <div class="card">
-      <img class="card__image" />
-      <h2 class="card__title"></h2>
-      <p class="card__num-like">0</p>
-      <button type="submit" class="card__like" aria-label="Лайкнуть"></button>
-      <button type="submit" class="card__trash" aria-label="Удалить"></button>
-    </div>
-  </template>
-  </>
   );
 }
 
-export default App;
+export default Main;
