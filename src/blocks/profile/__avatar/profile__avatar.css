@@ -1,0 +1,13 @@
+.profile__avatar {
+  grid-area: avatar;
+  height: 100%;
+  width: 100%;
+  /*margin-left: -35px;*/
+}
+
+@media all and (max-width : 920px) {
+  /* стили для планшета */
+  .profile__avatar {
+    justify-self: center;
+  }
+}

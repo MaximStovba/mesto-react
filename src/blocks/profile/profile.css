@@ -1,0 +1,34 @@
+@import url(./__avatar/profile__avatar.css);
+@import url(./__avatar-container/profile__avatar-container.css);
+@import url(./__avatar-overlay/profile__avatar-overlay.css);
+@import url(./__patchavatar-btn/profile__patchavatar-btn.css);
+@import url(./__profile-info/profile__profile-info.css);
+@import url(./__title/profile__title.css);
+@import url(./__edit-button/profile__edit-button.css);
+@import url(./__subtitle/profile__subtitle.css);
+@import url(./__add-button/profile__add-button.css);
+
+.profile {
+  margin: 40px auto 0;
+  max-width: 882px;
+  display: grid;
+  grid-template-columns: 120px 1fr 150px;
+  grid-template-rows: minmax(min-content, max-content); /*120*/
+  grid-column-gap: 30px;
+  grid-template-areas:
+  "avatar profile-info add-button";
+}
+
+@media all and (max-width : 920px) {
+  /* стили для планшета */
+  .profile {
+    margin-top: 42px;
+    max-width: 282px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 120px minmax(min-content, max-content) 50px;
+    grid-template-areas:
+    "avatar"
+    "profile-info"
+    "add-button";
+  }
+}

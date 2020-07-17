@@ -1,0 +1,18 @@
+.profile__subtitle {
+  grid-area: subtitle;
+  margin: 0;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #FFFFFF;
+}
+
+@media all and (max-width : 920px) {
+  /* стили для планшета */
+  .profile__subtitle {
+    font-size: 14px;
+    line-height: 17px;
+    justify-self: center;
+  }
+}

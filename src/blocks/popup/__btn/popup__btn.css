@@ -1,0 +1,30 @@
+.popup__btn {
+  margin: 28px 36px 36px 36px; /*48-20*/
+  padding: 0;
+  border-width: 0;
+  background: #000000;
+  border-radius: 2px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #FFFFFF;
+  height: 50px;
+  pointer-events: initial;
+}
+
+.popup__btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+}
+
+@media all and (max-width : 550px) {
+  /* телефоны */
+  .popup__btn {
+    font-size: 14px;
+    line-height: 17px;
+    margin: 21px 20px 30px 20px; /*36-15*/
+    height: 40px;
+  }
+}
