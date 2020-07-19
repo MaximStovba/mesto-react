@@ -9,14 +9,23 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
 
+  // обработчик открытия попапа "редактирования профиля"
   function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+    setIsEditProfilePopupOpen(true);
   }
+  // обработчик открытия попапа "добавления новой карточки"
   function handleAddPlaceClick() {
-    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+    setIsAddPlacePopupOpen(true);
   }
+  // обработчик открытия попапа "смены аватара"
   function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+    setIsEditAvatarPopupOpen(true);
+  }
+  // обработчик закрытия всех попапов
+  function closeAllPopups() {
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
   }
 
   return (
@@ -27,6 +36,7 @@ function App() {
       onEditAvatar={handleEditAvatarClick}
       onEditProfile={handleEditProfileClick}
       onAddPlace={handleAddPlaceClick}
+      onClose={closeAllPopups}
       isEditProfilePopupOpen={isEditProfilePopupOpen}
       isAddPlacePopupOpen={isAddPlacePopupOpen}
       isEditAvatarPopupOpen={isEditAvatarPopupOpen}
