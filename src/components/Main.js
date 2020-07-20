@@ -6,6 +6,7 @@ import InputAvatarForm from './InputAvatarForm';
 import InputAddForm from './InputAddForm';
 import InputEditForm from './InputEditForm';
 import ImagePopup from './ImagePopup';
+import Card from './Card';
 import { api } from '../utils/Api';
 
 function Main({
@@ -22,19 +23,21 @@ function Main({
   const [userName, setUserName] = React.useState();
   const [userDescription, setUserDescription] = React.useState();
   const [userAvatar, setUserAvatar] = React.useState();
+  const [cards, setCards] = React.useState([]);
 
-  // запрос в API за пользовательскими данными
+  // API-запрос
   React.useEffect(() => {
-    // загружаем данные пользователя с сервера
-    // загружаем карточки с сервера
     Promise.all([api.getUserInfo(), api.getInitialCards()])
-    .then(([userInfo, cards]) => {
-      // newUserInfo.setUserInfo(userInfo);
-      // cardsList.renderItems(cards, userInfo._id);
+    .then(([userInfo, allCards]) => {
       setUserName(userInfo.name);
       setUserDescription(userInfo.about);
       setUserAvatar(userInfo.avatar);
-        console.log(cards);
+      setCards(allCards.map(item => ({
+        id: item._id,
+        name: item.name,
+        link: item.link,
+        likes: item.likes.length,
+        })));
     })
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен: ', err);
@@ -59,7 +62,7 @@ function Main({
       </section>
       <section className="card-container">
         {
-        // Заполняется JS
+          cards.map(item => <Card key={item.id} card={item} />)
         }
       </section>
 
