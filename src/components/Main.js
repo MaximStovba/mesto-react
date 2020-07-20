@@ -13,13 +13,16 @@ function Main({
   onEditAvatar,
   onEditProfile,
   onAddPlace,
+  onCardClick,
   onClose,
   isEditProfilePopupOpen,
   isAddPlacePopupOpen,
   isEditAvatarPopupOpen,
+  selectedCard,
+  cardData,
 }) {
 
-  // переменные состояния
+  // Переменные состояния
   const [userName, setUserName] = React.useState();
   const [userDescription, setUserDescription] = React.useState();
   const [userAvatar, setUserAvatar] = React.useState();
@@ -48,7 +51,7 @@ function Main({
     <main className="content">
       <section className="profile">
         <div className="profile__avatar-container">
-          <img src={userAvatar} alt="Жак-Ив Кусто" className="profile__avatar" />
+          <img src={userAvatar} alt={userName} className="profile__avatar" />
           <div className="profile__avatar-overlay">
             <button type="button" className="profile__patchavatar-btn" aria-label="Редактировать" onClick={onEditAvatar}></button>
           </div>
@@ -62,7 +65,7 @@ function Main({
       </section>
       <section className="card-container">
         {
-          cards.map(item => <Card key={item.id} card={item} />)
+          cards.map(item => <Card key={item.id} card={item} onCardClick={onCardClick} />)
         }
       </section>
 
@@ -70,7 +73,7 @@ function Main({
       <PopupWithForm name="add" title="Новое место" children={<InputAddForm />} btnText="Создать" isOpen={isAddPlacePopupOpen} onClose={onClose} />
       <PopupWithForm name="del" title="Вы уверены?" children="" btnText="Да" />
       <PopupWithForm name="avatar" title="Обновить аватар" children={<InputAvatarForm />} btnText="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={onClose} />
-      <ImagePopup />
+      <ImagePopup cardOpen={selectedCard} onClose={onClose} cardData={cardData} />
 
     </main>
   );

@@ -8,7 +8,17 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(false);
+  const [cardData, setCardData] = React.useState({});
 
+  // обработчик клика по изображению карточки
+  function handleCardClick(card) {
+    setSelectedCard(true);
+    setCardData({
+      link: card.link,
+      name: card.name,
+    });
+  }
   // обработчик открытия попапа "редактирования профиля"
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -26,6 +36,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setSelectedCard(false);
   }
 
   return (
@@ -36,10 +47,13 @@ function App() {
       onEditAvatar={handleEditAvatarClick}
       onEditProfile={handleEditProfileClick}
       onAddPlace={handleAddPlaceClick}
+      onCardClick={handleCardClick}
       onClose={closeAllPopups}
       isEditProfilePopupOpen={isEditProfilePopupOpen}
       isAddPlacePopupOpen={isAddPlacePopupOpen}
       isEditAvatarPopupOpen={isEditAvatarPopupOpen}
+      selectedCard={selectedCard}
+      cardData={cardData}
     />
     <Footer />
   </div>
