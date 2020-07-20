@@ -6,6 +6,7 @@ import InputAvatarForm from './InputAvatarForm';
 import InputAddForm from './InputAddForm';
 import InputEditForm from './InputEditForm';
 import ImagePopup from './ImagePopup';
+import { api } from '../utils/Api';
 
 function Main({
   onEditAvatar,
@@ -17,19 +18,42 @@ function Main({
   isEditAvatarPopupOpen,
 }) {
 
+  // переменные состояния
+  const [userName, setUserName] = React.useState();
+  const [userDescription, setUserDescription] = React.useState();
+  const [userAvatar, setUserAvatar] = React.useState();
+
+  // запрос в API за пользовательскими данными
+  React.useEffect(() => {
+    // загружаем данные пользователя с сервера
+    // загружаем карточки с сервера
+    Promise.all([api.getUserInfo(), api.getInitialCards()])
+    .then(([userInfo, cards]) => {
+      // newUserInfo.setUserInfo(userInfo);
+      // cardsList.renderItems(cards, userInfo._id);
+      setUserName(userInfo.name);
+      setUserDescription(userInfo.about);
+      setUserAvatar(userInfo.avatar);
+        console.log(cards);
+    })
+    .catch((err) => {
+      console.log('Ошибка. Запрос не выполнен: ', err);
+    });
+  }, []);
+
   return (
     <main className="content">
       <section className="profile">
         <div className="profile__avatar-container">
-          <img src="./images/profile__avatar.jpg" alt="Жак-Ив Кусто" className="profile__avatar" />
+          <img src={userAvatar} alt="Жак-Ив Кусто" className="profile__avatar" />
           <div className="profile__avatar-overlay">
             <button type="button" className="profile__patchavatar-btn" aria-label="Редактировать" onClick={onEditAvatar}></button>
           </div>
         </div>
         <div className="profile__profile-info">
-          <h1 className="profile__title">Жак-Ив Кусто</h1>
+          <h1 className="profile__title">{userName}</h1>
           <button type="button" className="profile__edit-button" aria-label="Редактировать" onClick={onEditProfile}></button>
-          <p className="profile__subtitle">Исследователь океана</p>
+          <p className="profile__subtitle">{userDescription}</p>
         </div>
         <button type="button" className="profile__add-button" aria-label="Добавить" onClick={onAddPlace}></button>
       </section>
