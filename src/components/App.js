@@ -1,6 +1,11 @@
 import React from 'react';
 import Header from './Header';
 import Main from './Main';
+import PopupWithForm from './PopupWithForm';
+import InputAvatarForm from './InputAvatarForm';
+import InputAddForm from './InputAddForm';
+import InputEditForm from './InputEditForm';
+import ImagePopup from './ImagePopup';
 import Footer from './Footer';
 
 function App() {
@@ -48,13 +53,12 @@ function App() {
       onEditProfile={handleEditProfileClick}
       onAddPlace={handleAddPlaceClick}
       onCardClick={handleCardClick}
-      onClose={closeAllPopups}
-      isEditProfilePopupOpen={isEditProfilePopupOpen}
-      isAddPlacePopupOpen={isAddPlacePopupOpen}
-      isEditAvatarPopupOpen={isEditAvatarPopupOpen}
-      selectedCard={selectedCard}
-      cardData={cardData}
     />
+    <PopupWithForm name="edit" title="Редактировать профиль" children={<InputEditForm />} btnText="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+    <PopupWithForm name="add" title="Новое место" children={<InputAddForm />} btnText="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+    <PopupWithForm name="del" title="Вы уверены?" children="" btnText="Да" />
+    <PopupWithForm name="avatar" title="Обновить аватар" children={<InputAvatarForm />} btnText="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+    <ImagePopup cardOpen={selectedCard} onClose={closeAllPopups} cardData={cardData} />
     <Footer />
   </div>
   </>

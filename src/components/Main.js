@@ -1,11 +1,6 @@
 // Main.js
 
 import React from 'react';
-import PopupWithForm from './PopupWithForm';
-import InputAvatarForm from './InputAvatarForm';
-import InputAddForm from './InputAddForm';
-import InputEditForm from './InputEditForm';
-import ImagePopup from './ImagePopup';
 import Card from './Card';
 import { api } from '../utils/Api';
 
@@ -14,12 +9,6 @@ function Main({
   onEditProfile,
   onAddPlace,
   onCardClick,
-  onClose,
-  isEditProfilePopupOpen,
-  isAddPlacePopupOpen,
-  isEditAvatarPopupOpen,
-  selectedCard,
-  cardData,
 }) {
 
   // Переменные состояния
@@ -68,13 +57,6 @@ function Main({
           cards.map(item => <Card key={item.id} card={item} onCardClick={onCardClick} />)
         }
       </section>
-
-      <PopupWithForm name="edit" title="Редактировать профиль" children={<InputEditForm />} btnText="Сохранить" isOpen={isEditProfilePopupOpen} onClose={onClose} />
-      <PopupWithForm name="add" title="Новое место" children={<InputAddForm />} btnText="Создать" isOpen={isAddPlacePopupOpen} onClose={onClose} />
-      <PopupWithForm name="del" title="Вы уверены?" children="" btnText="Да" />
-      <PopupWithForm name="avatar" title="Обновить аватар" children={<InputAvatarForm />} btnText="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={onClose} />
-      <ImagePopup cardOpen={selectedCard} onClose={onClose} cardData={cardData} />
-
     </main>
   );
 }
