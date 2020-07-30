@@ -9,6 +9,7 @@ import InputAddForm from './InputAddForm';
 import InputEditForm from './InputEditForm';
 import ImagePopup from './ImagePopup';
 import Footer from './Footer';
+import { api } from '../utils/Api';
 
 function App() {
   // переменные состояния
@@ -17,6 +18,14 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(false);
   const [cardData, setCardData] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState();
+
+  React.useEffect(() => {
+    api.getUserInfo()
+    .then((userInfo) => {
+      setCurrentUser(userInfo);
+    })
+  }, []);
 
   // обработчик клика по изображению карточки
   function handleCardClick(card) {
@@ -29,6 +38,7 @@ function App() {
   // обработчик открытия попапа "редактирования профиля"
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
+    console.log(currentUser);
   }
   // обработчик открытия попапа "добавления новой карточки"
   function handleAddPlaceClick() {
