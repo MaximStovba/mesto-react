@@ -4,6 +4,7 @@ import React from 'react';
 import Header from './Header';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
+import EditProfilePopup from './EditProfilePopup';
 import InputAvatarForm from './InputAvatarForm';
 import InputAddForm from './InputAddForm';
 import InputEditForm from './InputEditForm';
@@ -68,7 +69,7 @@ function App() {
         onAddPlace={handleAddPlaceClick}
         onCardClick={handleCardClick}
       />
-      <PopupWithForm name="edit" title="Редактировать профиль" children={<InputEditForm />} btnText="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
       <PopupWithForm name="add" title="Новое место" children={<InputAddForm />} btnText="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
       <PopupWithForm name="del" title="Вы уверены?" children="" btnText="Да" />
       <PopupWithForm name="avatar" title="Обновить аватар" children={<InputAvatarForm />} btnText="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
