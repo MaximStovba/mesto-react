@@ -24,7 +24,8 @@ function Main({
         id: item._id,
         name: item.name,
         link: item.link,
-        likes: item.likes.length,
+        likes: item.likes,
+        numLikes: item.likes.length,
         })));
     })
     .catch((err) => {
