@@ -35,8 +35,20 @@ function Main({
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, !isLiked)
     .then((newCard) => {
-        // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
+      // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
       const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+      // Обновляем стейт
+      setCards(newCards);
+    });
+  }
+
+  // удаление своей карточки
+  function handleCardDelete(card) {
+    api.deleteMyCard(card._id)
+    .then((delCard) => {
+      // Cоздаем копию массива, исключив из него удалённую карточку
+      const newCards = cards.filter((c) => c._id !== card._id);
+      console.log(delCard);
       // Обновляем стейт
       setCards(newCards);
     });
@@ -63,7 +75,7 @@ function Main({
       </section>
       <section className="card-container">
         {
-          cards.map(item => <Card key={item._id} card={item} onCardClick={onCardClick} onCardLike={handleCardLike} />)
+          cards.map(item => <Card key={item._id} card={item} onCardClick={onCardClick} onCardLike={handleCardLike} onCardDelete={handleCardDelete} />)
         }
       </section>
     </main>
