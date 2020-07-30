@@ -21,7 +21,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(false);
   const [cardData, setCardData] = React.useState({});
-  const [currentUser, setCurrentUser] = React.useState();
+  const [currentUser, setCurrentUser] = React.useState({});
 
   React.useEffect(() => {
     api.getUserInfo()
@@ -59,9 +59,8 @@ function App() {
   }
 
   return (
-  <>
-  <div className="page">
-    <CurrentUserContext.Provider value={currentUser}>
+  <CurrentUserContext.Provider value={currentUser}>
+    <div className="page">
       <Header />
       <Main
         onEditAvatar={handleEditAvatarClick}
@@ -75,9 +74,8 @@ function App() {
       <PopupWithForm name="avatar" title="Обновить аватар" children={<InputAvatarForm />} btnText="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
       <ImagePopup cardOpen={selectedCard} onClose={closeAllPopups} cardData={cardData} />
       <Footer />
-    </CurrentUserContext.Provider>
-  </div>
-  </>
+    </div>
+  </CurrentUserContext.Provider>
   );
 }
 
