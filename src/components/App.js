@@ -9,7 +9,10 @@ import InputAddForm from './InputAddForm';
 import InputEditForm from './InputEditForm';
 import ImagePopup from './ImagePopup';
 import Footer from './Footer';
+// импортируем api
 import { api } from '../utils/Api';
+// импортируем объект контекста
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
   // переменные состояния
@@ -38,7 +41,6 @@ function App() {
   // обработчик открытия попапа "редактирования профиля"
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
-    console.log(currentUser);
   }
   // обработчик открытия попапа "добавления новой карточки"
   function handleAddPlaceClick() {
@@ -59,19 +61,21 @@ function App() {
   return (
   <>
   <div className="page">
-    <Header />
-    <Main
-      onEditAvatar={handleEditAvatarClick}
-      onEditProfile={handleEditProfileClick}
-      onAddPlace={handleAddPlaceClick}
-      onCardClick={handleCardClick}
-    />
-    <PopupWithForm name="edit" title="Редактировать профиль" children={<InputEditForm />} btnText="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
-    <PopupWithForm name="add" title="Новое место" children={<InputAddForm />} btnText="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
-    <PopupWithForm name="del" title="Вы уверены?" children="" btnText="Да" />
-    <PopupWithForm name="avatar" title="Обновить аватар" children={<InputAvatarForm />} btnText="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
-    <ImagePopup cardOpen={selectedCard} onClose={closeAllPopups} cardData={cardData} />
-    <Footer />
+    <CurrentUserContext.Provider value={currentUser}>
+      <Header />
+      <Main
+        onEditAvatar={handleEditAvatarClick}
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onCardClick={handleCardClick}
+      />
+      <PopupWithForm name="edit" title="Редактировать профиль" children={<InputEditForm />} btnText="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+      <PopupWithForm name="add" title="Новое место" children={<InputAddForm />} btnText="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+      <PopupWithForm name="del" title="Вы уверены?" children="" btnText="Да" />
+      <PopupWithForm name="avatar" title="Обновить аватар" children={<InputAvatarForm />} btnText="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+      <ImagePopup cardOpen={selectedCard} onClose={closeAllPopups} cardData={cardData} />
+      <Footer />
+    </CurrentUserContext.Provider>
   </div>
   </>
   );
