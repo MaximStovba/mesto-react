@@ -126,6 +126,22 @@ class Api {
     });
   }
 
+  // публичный метод постановки / снятия лайков v3
+  changeLikeCardStatus(cardId, isLiked) {
+    return fetch(this._baseUrl + '/cards/likes/' + cardId, {
+      method: isLiked ? 'PUT' : 'DELETE',
+      headers: {
+        authorization: this._headers
+      }
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    });
+  }
+
   // публичный метод загрузки аватара v2
   patchAvatar(avatarUrl) {
     return fetch(this._baseUrl + '/users/me/avatar', {
