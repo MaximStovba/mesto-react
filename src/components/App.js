@@ -68,6 +68,15 @@ function App() {
     closeAllPopups();
   }
 
+  // обработчик смены аватара пользователя
+  function handleUpdateAvatar(avatarUrl) {
+    api.patchAvatar(avatarUrl)
+    .then((userInfo) => {
+      setCurrentUser(userInfo);
+    });
+    closeAllPopups();
+  }
+
   return (
   <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
@@ -79,7 +88,7 @@ function App() {
         onCardClick={handleCardClick}
       />
       <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
       <PopupWithForm name="add" title="Новое место" children={<InputAddForm />} btnText="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
       <PopupWithForm name="del" title="Вы уверены?" children="" btnText="Да" />
       <ImagePopup cardOpen={selectedCard} onClose={closeAllPopups} cardData={cardData} />

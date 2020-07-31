@@ -3,22 +3,30 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 import InputAvatarForm from './InputAvatarForm';
-// импортируем объект контекста
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
+function EditAvatarPopup({isOpen, onClose, onUpdateAvatar}) {
+  // реф
+  const avatarRef = React.useRef();
 
-function EditAvatarPopup({isOpen, onClose}) {
-  // Подписываемся на контекст CurrentUserContext
-  // const currentUser = React.useContext(CurrentUserContext);
+  function handleSubmit(e) {
+    // Запрещаем браузеру переходить по адресу формы
+    e.preventDefault();
+
+    // Передаём значения управляемых компонентов во внешний обработчик
+    onUpdateAvatar({
+      avatar: avatarRef.current.value,
+    });
+  }
 
   return (
     <PopupWithForm
       name="avatar"
       title="Обновить аватар"
-      children={<InputAvatarForm />}
+      children={<InputAvatarForm avatarRef={avatarRef} />}
       btnText="Сохранить"
       isOpen={isOpen}
-      onClose={onClose} />
+      onClose={onClose}
+      onSubmit={handleSubmit} />
   );
 }
 
