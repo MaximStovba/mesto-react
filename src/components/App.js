@@ -5,7 +5,8 @@ import Header from './Header';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditProfilePopup';
-import InputAvatarForm from './InputAvatarForm';
+import EditAvatarPopup from './EditAvatarPopup';
+// import InputAvatarForm from './InputAvatarForm';
 import InputAddForm from './InputAddForm';
 // import InputEditForm from './InputEditForm';
 import ImagePopup from './ImagePopup';
@@ -78,9 +79,9 @@ function App() {
         onCardClick={handleCardClick}
       />
       <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
       <PopupWithForm name="add" title="Новое место" children={<InputAddForm />} btnText="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
       <PopupWithForm name="del" title="Вы уверены?" children="" btnText="Да" />
-      <PopupWithForm name="avatar" title="Обновить аватар" children={<InputAvatarForm />} btnText="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
       <ImagePopup cardOpen={selectedCard} onClose={closeAllPopups} cardData={cardData} />
       <Footer />
     </div>
