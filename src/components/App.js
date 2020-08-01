@@ -64,7 +64,7 @@ function App() {
   }
 // ------------- CARDS ----------------
 
-  // переменные состояния
+  // переменные состояния попап
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
@@ -72,9 +72,10 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState(false);
   const [cardData, setCardData] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
-  // текст кнопки сабмита "сохранить"
+  
+  // переменная состояния кнопки сабмита "сохранить"
   const [submitAddBtnText, setSubmitAddBtnText] = React.useState('Cохранить');
-  // текст кнопки сабмита "создать"
+  // переменная состояния кнопки сабмита "создать"
   const [submitCreateBtnText, setSubmitCreateBtnText] = React.useState('Создать');
 
 
