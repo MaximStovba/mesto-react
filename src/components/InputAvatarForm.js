@@ -2,7 +2,11 @@
 
 import React from 'react';
 
-function InputAvatarForm({avatarRef, isValid, validationMessage, handleChangeAvatarInput}) {
+function InputAvatarForm({
+  avatarRef,
+  isValid,
+  validationMessage,
+  handleChangeAvatarInput}) {
 
   return (
     <>
@@ -19,8 +23,7 @@ function InputAvatarForm({avatarRef, isValid, validationMessage, handleChangeAva
         />
       <span
         className={`popup__text-error ${isValid ? '' : 'popup__text-error_active'}`}
-        id="url-input-error">{validationMessage}
-      </span>
+        id="url-input-error">{validationMessage}</span>
     </>
   );
 }

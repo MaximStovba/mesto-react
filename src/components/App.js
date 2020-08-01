@@ -15,6 +15,7 @@ import { api } from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
+  
   // ------------- CARDS ----------------
   // Переменные состояния
   const [cards, setCards] = React.useState([]);
@@ -77,12 +78,17 @@ function App() {
   const [submitAddBtnText, setSubmitAddBtnText] = React.useState('Cохранить');
   // переменная состояния кнопки сабмита "создать"
   const [submitCreateBtnText, setSubmitCreateBtnText] = React.useState('Создать');
-  // переменная состояния валидности поля ввода формы изменения аватара
-  const [isValid, setIsValid] = React.useState(false);
+  // переменная состояния валидности полей ввода форм
+  const [isAvatarValid, setIsAvatarValid] = React.useState(false); // аватар
+  const [isNameValid, setIsNameValid] = React.useState(false); // имя пользователя
+  const [isDescriptionValid, setIsDescriptionValid] = React.useState(false); // описание пользователя
+
   // переменная состояния кнопки сабмита
   const [isSbmtBtnActiv, setIsSbmtBtnActiv] = React.useState(false);
   // переменная состояния validationMessage
   const [validationMessage, setValidationMessage] = React.useState('Введите данные');
+  const [validNameMessage, setValidNameMessage] = React.useState('Введите данные');
+  const [validDescriptionMessage, setValidDescriptionMessage] = React.useState('Введите данные');
 
 
   // получаем информацию о пользователе
@@ -104,7 +110,15 @@ function App() {
 
   // обработчик открытия попапа "редактирования профиля"
   function handleEditProfileClick() {
+    // сброс полей формы
+
+    // открываем попап
     setIsEditProfilePopupOpen(true);
+    // скрываем ошибки валидации при открытии
+    setIsNameValid(true);
+    setIsDescriptionValid(true);
+    // делаем кнопку сабмита активной при открытии
+    setIsSbmtBtnActiv(true);
   }
 
   // обработчик открытия попапа "добавления новой карточки"
@@ -117,7 +131,7 @@ function App() {
     // открываем попап
     setIsEditAvatarPopupOpen(true);
     // скрываем ошибки валидации при открытии
-    setIsValid(true);
+    setIsAvatarValid(true);
     // делаем кнопку сабмита неактивной
     setIsSbmtBtnActiv(false);
   }
@@ -171,17 +185,41 @@ function App() {
     closeAllPopups();
   }
 
-  // Обработчик изменения инпута обновляет стейт (форма смены аватара пользователя)
+  // ------------- валидация полей ввода форм -------------------
+  // Обработчик изменения инпута аватара
   function handleChangeAvatarInput(e) {
     if (e.target.validity.valid) {
-      setIsValid(true);
+      setIsAvatarValid(true);
       setIsSbmtBtnActiv(true);
     } else {
-      setIsValid(false);
+      setIsAvatarValid(false);
       setIsSbmtBtnActiv(false);
       setValidationMessage(e.target.validationMessage);
     }
   }
+  // Обработчик изменения инпута имени пользователя
+  function handleChangeProfileName(e) {
+    if (e.target.validity.valid) {
+      setIsNameValid(true);
+      setIsSbmtBtnActiv(true);
+    } else {
+      setIsNameValid(false);
+      setIsSbmtBtnActiv(false);
+      setValidNameMessage(e.target.validationMessage);
+    }
+  }
+  // Обработчик изменения инпута описания пользователя
+  function handleChangeProfileDescription(e) {
+    if (e.target.validity.valid) {
+      setIsDescriptionValid(true);
+      setIsSbmtBtnActiv(true);
+    } else {
+      setIsDescriptionValid(false);
+      setIsSbmtBtnActiv(false);
+      setValidDescriptionMessage(e.target.validationMessage);
+    }
+  }
+  // ------------- валидация полей ввода форм -------------------
 
   // обработчик добавления новой карточки
   function handleAddPlace(formData) {
@@ -220,6 +258,13 @@ function App() {
         onClose={closeAllPopups}
         onUpdateUser={handleUpdateUser}
         submitBtnText={submitAddBtnText}
+        isSbmtBtnActiv={isSbmtBtnActiv}
+        handleChangeProfileName={handleChangeProfileName}
+        handleChangeProfileDescription={handleChangeProfileDescription}
+        isNameValid={isNameValid}
+        isDescriptionValid={isDescriptionValid}
+        validNameMessage={validNameMessage}
+        validDescriptionMessage={validDescriptionMessage}
         />
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
@@ -227,7 +272,7 @@ function App() {
         onUpdateAvatar={handleUpdateAvatar}
         submitBtnText={submitAddBtnText}
         handleChangeAvatarInput={handleChangeAvatarInput}
-        isValid={isValid}
+        isValid={isAvatarValid}
         isSbmtBtnActiv={isSbmtBtnActiv}
         validationMessage={validationMessage}
         />

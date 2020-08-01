@@ -7,7 +7,18 @@ import InputEditForm from './InputEditForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 
-function EditProfilePopup({ isOpen, onClose, onUpdateUser, submitBtnText }) {
+function EditProfilePopup({
+    isOpen,
+    onClose,
+    onUpdateUser,
+    submitBtnText,
+    isNameValid,
+    isDescriptionValid,
+    validNameMessage,
+    validDescriptionMessage,
+    handleChangeProfileName,
+    handleChangeProfileDescription,
+    isSbmtBtnActiv}) {
 
     // Стейт, в котором содержится значение инпута
     const [name, setName] = React.useState('');
@@ -16,11 +27,13 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, submitBtnText }) {
     // Обработчик изменения инпута обновляет стейт
     function handleChangeName(e) {
       setName(e.target.value);
+      handleChangeProfileName(e);
     }
 
     // Обработчик изменения инпута обновляет стейт
     function handleChangeDescription(e) {
       setDescription(e.target.value);
+      handleChangeProfileDescription(e);
     }
 
     // Подписываемся на контекст CurrentUserContext
@@ -31,13 +44,12 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, submitBtnText }) {
     React.useEffect(() => {
       setName(currentUser.name);
       setDescription(currentUser.about);
-    }, [currentUser]);
+    }, [currentUser, onClose]);
 
     // Обработчик сабмита формы
     function handleSubmit(e) {
       // Запрещаем браузеру переходить по адресу формы
       e.preventDefault();
-
       // Передаём значения управляемых компонентов во внешний обработчик
       onUpdateUser({
         name: name,
@@ -54,11 +66,16 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, submitBtnText }) {
         description={description}
         handleChangeName={handleChangeName}
         handleChangeDescription={handleChangeDescription}
+        isNameValid={isNameValid}
+        isDescriptionValid={isDescriptionValid}
+        validNameMessage={validNameMessage}
+        validDescriptionMessage={validDescriptionMessage}
         />}
       btnText={submitBtnText}
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleSubmit} />
+      onSubmit={handleSubmit}
+      isSbmtBtnActiv={isSbmtBtnActiv} />
   );
 }
 
