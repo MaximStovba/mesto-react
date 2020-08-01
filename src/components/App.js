@@ -15,7 +15,7 @@ import { api } from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
-  
+
   // ------------- CARDS ----------------
   // Переменные состояния
   const [cards, setCards] = React.useState([]);
@@ -89,7 +89,8 @@ function App() {
   const [validationMessage, setValidationMessage] = React.useState('Введите данные');
   const [validNameMessage, setValidNameMessage] = React.useState('Введите данные');
   const [validDescriptionMessage, setValidDescriptionMessage] = React.useState('Введите данные');
-
+  // реф кнопки сабмита форм
+  const submitBtnRef = React.useRef();
 
   // получаем информацию о пользователе
   React.useEffect(() => {
@@ -110,8 +111,6 @@ function App() {
 
   // обработчик открытия попапа "редактирования профиля"
   function handleEditProfileClick() {
-    // сброс полей формы
-
     // открываем попап
     setIsEditProfilePopupOpen(true);
     // скрываем ошибки валидации при открытии
@@ -119,6 +118,7 @@ function App() {
     setIsDescriptionValid(true);
     // делаем кнопку сабмита активной при открытии
     setIsSbmtBtnActiv(true);
+    submitBtnRef.current.disabled = false;
   }
 
   // обработчик открытия попапа "добавления новой карточки"
@@ -134,6 +134,7 @@ function App() {
     setIsAvatarValid(true);
     // делаем кнопку сабмита неактивной
     setIsSbmtBtnActiv(false);
+    submitBtnRef.current.disabled = true;
   }
 
   // обработчик закрытия всех попапов
@@ -191,9 +192,11 @@ function App() {
     if (e.target.validity.valid) {
       setIsAvatarValid(true);
       setIsSbmtBtnActiv(true);
+      submitBtnRef.current.disabled = false;
     } else {
       setIsAvatarValid(false);
       setIsSbmtBtnActiv(false);
+      submitBtnRef.current.disabled = true;
       setValidationMessage(e.target.validationMessage);
     }
   }
@@ -202,9 +205,11 @@ function App() {
     if (e.target.validity.valid) {
       setIsNameValid(true);
       setIsSbmtBtnActiv(true);
+      submitBtnRef.current.disabled = false;
     } else {
       setIsNameValid(false);
       setIsSbmtBtnActiv(false);
+      submitBtnRef.current.disabled = true;
       setValidNameMessage(e.target.validationMessage);
     }
   }
@@ -213,9 +218,11 @@ function App() {
     if (e.target.validity.valid) {
       setIsDescriptionValid(true);
       setIsSbmtBtnActiv(true);
+      submitBtnRef.current.disabled = false;
     } else {
       setIsDescriptionValid(false);
       setIsSbmtBtnActiv(false);
+      submitBtnRef.current.disabled = true;
       setValidDescriptionMessage(e.target.validationMessage);
     }
   }
@@ -274,6 +281,7 @@ function App() {
         handleChangeAvatarInput={handleChangeAvatarInput}
         isValid={isAvatarValid}
         isSbmtBtnActiv={isSbmtBtnActiv}
+        submitBtnRef={submitBtnRef}
         validationMessage={validationMessage}
         />
       <AddPlacePopup

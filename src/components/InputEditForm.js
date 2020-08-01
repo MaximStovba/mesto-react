@@ -6,11 +6,12 @@ function InputEditForm({
   name,
   description,
   handleChangeName,
+  handleChangeDescription,
   isNameValid,
   isDescriptionValid,
   validNameMessage,
   validDescriptionMessage,
-  handleChangeDescription}) {
+  }) {
 
   return (
     <>
