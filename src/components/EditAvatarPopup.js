@@ -13,7 +13,8 @@ function EditAvatarPopup({
     isSbmtBtnActiv,
     submitBtnRef,
     validationMessage,
-    handleChangeAvatarInput}) {
+    handleChangeAvatarInput
+    }) {
 
   // реф инпута url аватара
   const avatarRef = React.useRef();

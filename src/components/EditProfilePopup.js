@@ -18,7 +18,9 @@ function EditProfilePopup({
     validDescriptionMessage,
     handleChangeProfileName,
     handleChangeProfileDescription,
-    isSbmtBtnActiv}) {
+    isSbmtBtnActiv,
+    submitBtnRef,
+    }) {
 
     // Стейт, в котором содержится значение инпута
     const [name, setName] = React.useState('');
@@ -75,7 +77,8 @@ function EditProfilePopup({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isSbmtBtnActiv={isSbmtBtnActiv} />
+      isSbmtBtnActiv={isSbmtBtnActiv}
+      submitBtnRef={submitBtnRef} />
   );
 }
 

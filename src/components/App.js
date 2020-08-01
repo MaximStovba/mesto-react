@@ -266,6 +266,7 @@ function App() {
         onUpdateUser={handleUpdateUser}
         submitBtnText={submitAddBtnText}
         isSbmtBtnActiv={isSbmtBtnActiv}
+        submitBtnRef={submitBtnRef}
         handleChangeProfileName={handleChangeProfileName}
         handleChangeProfileDescription={handleChangeProfileDescription}
         isNameValid={isNameValid}
