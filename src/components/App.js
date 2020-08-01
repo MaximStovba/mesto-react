@@ -72,11 +72,15 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState(false);
   const [cardData, setCardData] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
-  
+
   // переменная состояния кнопки сабмита "сохранить"
   const [submitAddBtnText, setSubmitAddBtnText] = React.useState('Cохранить');
   // переменная состояния кнопки сабмита "создать"
   const [submitCreateBtnText, setSubmitCreateBtnText] = React.useState('Создать');
+  // переменная состояния валидности поля ввода формы изменения аватара
+  const [isValid, setIsValid] = React.useState(false);
+  // переменная состояния validationMessage
+  const [validationMessage, setValidationMessage] = React.useState('Введите данные');
 
 
   // получаем информацию о пользователе
@@ -108,7 +112,10 @@ function App() {
 
   // обработчик открытия попапа "смены аватара"
   function handleEditAvatarClick() {
+    // открываем попап
     setIsEditAvatarPopupOpen(true);
+    // скрываем ошибки валидации при открытии
+    setIsValid(true);
   }
 
   // обработчик закрытия всех попапов
@@ -158,6 +165,16 @@ function App() {
     closeAllPopups();
   }
 
+  // Обработчик изменения инпута обновляет стейт (форма смены аватара пользователя)
+  function handleChangeAvatarInput(e) {
+    if (e.target.validity.valid) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+      setValidationMessage(e.target.validationMessage);
+    }
+  }
+
   // обработчик добавления новой карточки
   function handleAddPlace(formData) {
     // меняем название кнопки сабмита перед началом загрузки
@@ -201,6 +218,9 @@ function App() {
         onClose={closeAllPopups}
         onUpdateAvatar={handleUpdateAvatar}
         submitBtnText={submitAddBtnText}
+        handleChangeAvatarInput={handleChangeAvatarInput}
+        isValid={isValid}
+        validationMessage={validationMessage}
         />
       <AddPlacePopup
         isOpen={isAddPlacePopupOpen}

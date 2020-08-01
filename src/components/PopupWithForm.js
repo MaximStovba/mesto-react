@@ -2,13 +2,13 @@
 
 import React from 'react';
 
-function PopupWithForm({ name, title, children, btnText, isOpen, onClose, onSubmit }) {
+function PopupWithForm({ name, title, children, btnText, isOpen, onClose, onSubmit, isValid }) {
   return (
     <section className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : ''}`}>
       <form name={name} method="POST" onSubmit={onSubmit} action="#" className={`popup__form popup__container popup__container_formtype_${name}`} noValidate>
         <h2 className="popup__title">{title}</h2>
         {children}
-        <button type="submit" className={`popup__submit popup__btn popup__btn_action_${name}`}>{btnText}</button>
+        <button type="submit" className={`popup__submit popup__btn popup__btn_action_${name} ${isValid ? '' : 'popup__btn_disabled'}`}>{btnText}</button>
         <button type="button" className={`popup__btn-close popup__btn-close_formtype_${name}`} aria-label="Закрыть" onClick={onClose}></button>
       </form>
     </section>

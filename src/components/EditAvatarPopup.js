@@ -4,10 +4,19 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm';
 import InputAvatarForm from './InputAvatarForm';
 
-function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, submitBtnText}) {
-  // реф
+function EditAvatarPopup({
+    isOpen,
+    onClose,
+    onUpdateAvatar,
+    submitBtnText,
+    isValid,
+    validationMessage,
+    handleChangeAvatarInput}) {
+
+  // реф инпута url аватара
   const avatarRef = React.useRef();
 
+  // обработчик сабмита формы
   function handleSubmit(e) {
     // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
@@ -23,11 +32,17 @@ function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, submitBtnText}) {
     <PopupWithForm
       name="avatar"
       title="Обновить аватар"
-      children={<InputAvatarForm avatarRef={avatarRef} />}
+      children={<InputAvatarForm
+        avatarRef={avatarRef}
+        handleChangeAvatarInput={handleChangeAvatarInput}
+        isValid={isValid}
+        validationMessage={validationMessage}
+        />}
       btnText={submitBtnText}
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleSubmit} />
+      onSubmit={handleSubmit}
+      isValid={isValid} />
   );
 }
 
