@@ -6,6 +6,7 @@ import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 // import InputAvatarForm from './InputAvatarForm';
 import InputAddForm from './InputAddForm';
 // import InputEditForm from './InputEditForm';
@@ -21,6 +22,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+
   const [selectedCard, setSelectedCard] = React.useState(false);
   const [cardData, setCardData] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
@@ -76,6 +78,19 @@ function App() {
     api.patchAvatar(avatarUrl)
     .then((userInfo) => {
       setCurrentUser(userInfo);
+    })
+    .catch((err) => {
+      console.log('Ошибка. Запрос не выполнен: ', err);
+    });
+    closeAllPopups();
+  }
+
+  // обработчик добавления карточки
+  function handleAddPlace(formData) {
+    api.postNewCard(formData)
+    .then((newCard) => {
+      // newCard
+      console.log(newCard);
     })
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен: ', err);
@@ -148,7 +163,8 @@ function App() {
       />
       <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
       <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
-      <PopupWithForm name="add" title="Новое место" children={<InputAddForm />} btnText="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+      <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlace} />
+
       <PopupWithForm name="del" title="Вы уверены?" children="" btnText="Да" />
       <ImagePopup cardOpen={selectedCard} onClose={closeAllPopups} cardData={cardData} />
       <Footer />
