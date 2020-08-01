@@ -5,7 +5,7 @@ import PopupWithForm from './PopupWithForm';
 import InputAddForm from './InputAddForm';
 
 
-function AddPlacePopup({isOpen, onClose, onAddPlace}) {
+function AddPlacePopup({isOpen, onClose, onAddPlace, submitBtnText}) {
 
   // Стейт, в котором содержится значение инпута
   const [place, setPlace] = React.useState('');
@@ -36,8 +36,13 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
     <PopupWithForm
       name="add"
       title="Новое место"
-      children={<InputAddForm place={place} url={url} handleChangePlace={handleChangePlace} handleChangeUrl={handleChangeUrl} />}
-      btnText="Создать"
+      children={<InputAddForm
+        place={place}
+        url={url}
+        handleChangePlace={handleChangePlace}
+        handleChangeUrl={handleChangeUrl}
+        />}
+      btnText={submitBtnText}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit} />

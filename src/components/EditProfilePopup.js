@@ -7,7 +7,7 @@ import InputEditForm from './InputEditForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 
-function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser, submitBtnText }) {
 
     // Стейт, в котором содержится значение инпута
     const [name, setName] = React.useState('');
@@ -49,8 +49,13 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     <PopupWithForm
       name="edit"
       title="Редактировать профиль"
-      children={<InputEditForm name={name} description={description} handleChangeName={handleChangeName} handleChangeDescription={handleChangeDescription} />}
-      btnText="Сохранить"
+      children={<InputEditForm
+        name={name}
+        description={description}
+        handleChangeName={handleChangeName}
+        handleChangeDescription={handleChangeDescription}
+        />}
+      btnText={submitBtnText}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit} />

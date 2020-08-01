@@ -16,7 +16,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
   // ------------- CARDS ----------------
-  // Переменные состояния >
+  // Переменные состояния
   const [cards, setCards] = React.useState([]);
 
   // API-запрос >
@@ -30,7 +30,7 @@ function App() {
     });
   }, []);
 
-  // отмечаем лайки и дизлайки >
+  // обработчик лайков и дизлайков
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -48,7 +48,7 @@ function App() {
     });
   }
 
-  // удаление своей карточки >
+  // обработчик удаления своей карточки
   function handleCardDelete(card) {
     api.deleteMyCard(card._id)
     .then((delCard) => {
@@ -72,7 +72,13 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState(false);
   const [cardData, setCardData] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
+  // текст кнопки сабмита "сохранить"
+  const [submitAddBtnText, setSubmitAddBtnText] = React.useState('Cохранить');
+  // текст кнопки сабмита "создать"
+  const [submitCreateBtnText, setSubmitCreateBtnText] = React.useState('Создать');
 
+
+  // получаем информацию о пользователе
   React.useEffect(() => {
     api.getUserInfo()
     .then((userInfo) => {
@@ -112,39 +118,61 @@ function App() {
     setSelectedCard(false);
   }
 
-  // обработчик обновления информации пользователя
+  // обработчик обновления информации о пользователе
   function handleUpdateUser(formData) {
+    // меняем название кнопки сабмита перед началом загрузки
+    // добавляем надпись "Сохранение..."
+    setSubmitAddBtnText('Cохранение...');
+    // сохранение данных профиля на сервере
     api.patchUserInfo(formData)
-    .then((userInfo) => {
-      setCurrentUser(userInfo);
-    })
-    .catch((err) => {
-      console.log('Ошибка. Запрос не выполнен: ', err);
-    });
+      .then((userInfo) => {
+        setCurrentUser(userInfo);
+      })
+      .catch((err) => {
+        console.log('Ошибка. Запрос не выполнен: ', err);
+      })
+      .finally(() => {
+        // меняем название кнопки сабмита при завершении загрузки
+        setSubmitAddBtnText('Cохранить');
+      });
     closeAllPopups();
   }
 
   // обработчик смены аватара пользователя
   function handleUpdateAvatar(avatarUrl) {
+    // меняем название кнопки сабмита перед началом загрузки
+    // добавляем надпись "Сохранение..."
+    setSubmitAddBtnText('Cохранение...');
     api.patchAvatar(avatarUrl)
-    .then((userInfo) => {
-      setCurrentUser(userInfo);
-    })
-    .catch((err) => {
-      console.log('Ошибка. Запрос не выполнен: ', err);
-    });
+      .then((userInfo) => {
+        setCurrentUser(userInfo);
+      })
+      .catch((err) => {
+        console.log('Ошибка. Запрос не выполнен: ', err);
+      })
+      .finally(() => {
+        // меняем название кнопки сабмита при завершении загрузки
+        setSubmitAddBtnText('Cохранить');
+      });
     closeAllPopups();
   }
 
   // обработчик добавления новой карточки
   function handleAddPlace(formData) {
+    // меняем название кнопки сабмита перед началом загрузки
+    // добавляем надпись "Сохранение..."
+    setSubmitCreateBtnText('Cохранение...');
     api.postNewCard(formData)
-    .then((newCard) => {
-      setCards([newCard, ...cards]);
-    })
-    .catch((err) => {
-      console.log('Ошибка. Запрос не выполнен: ', err);
-    });
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+      })
+      .catch((err) => {
+        console.log('Ошибка. Запрос не выполнен: ', err);
+      })
+      .finally(() => {
+        // меняем название кнопки сабмита при завершении загрузки
+        setSubmitCreateBtnText('Создать');
+      });
     closeAllPopups();
   }
 
@@ -161,12 +189,35 @@ function App() {
         onCardDelete={handleCardDelete}
         cards={cards}
       />
-      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
-      <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlace} />
-
-      <PopupWithForm name="del" title="Вы уверены?" children="" btnText="Да" />
-      <ImagePopup cardOpen={selectedCard} onClose={closeAllPopups} cardData={cardData} />
+      <EditProfilePopup
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
+        onUpdateUser={handleUpdateUser}
+        submitBtnText={submitAddBtnText}
+        />
+      <EditAvatarPopup
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
+        onUpdateAvatar={handleUpdateAvatar}
+        submitBtnText={submitAddBtnText}
+        />
+      <AddPlacePopup
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
+        onAddPlace={handleAddPlace}
+        submitBtnText={submitCreateBtnText}
+        />
+      <PopupWithForm
+        name="del"
+        title="Вы уверены?"
+        children=""
+        btnText="Да"
+        />
+      <ImagePopup
+        cardOpen={selectedCard}
+        onClose={closeAllPopups}
+        cardData={cardData}
+        />
       <Footer />
     </div>
   </CurrentUserContext.Provider>
