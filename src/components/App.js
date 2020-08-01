@@ -79,6 +79,8 @@ function App() {
   const [submitCreateBtnText, setSubmitCreateBtnText] = React.useState('Создать');
   // переменная состояния валидности поля ввода формы изменения аватара
   const [isValid, setIsValid] = React.useState(false);
+  // переменная состояния кнопки сабмита
+  const [isSbmtBtnActiv, setIsSbmtBtnActiv] = React.useState(false);
   // переменная состояния validationMessage
   const [validationMessage, setValidationMessage] = React.useState('Введите данные');
 
@@ -116,14 +118,18 @@ function App() {
     setIsEditAvatarPopupOpen(true);
     // скрываем ошибки валидации при открытии
     setIsValid(true);
+    // делаем кнопку сабмита неактивной
+    setIsSbmtBtnActiv(false);
   }
 
   // обработчик закрытия всех попапов
-  function closeAllPopups() {
+  function closeAllPopups(e) {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setSelectedCard(false);
+    // сбрасываем поля ввода формы при закрытии
+    if (e !== undefined) {e.target.parentElement.reset()}
   }
 
   // обработчик обновления информации о пользователе
@@ -169,8 +175,10 @@ function App() {
   function handleChangeAvatarInput(e) {
     if (e.target.validity.valid) {
       setIsValid(true);
+      setIsSbmtBtnActiv(true);
     } else {
       setIsValid(false);
+      setIsSbmtBtnActiv(false);
       setValidationMessage(e.target.validationMessage);
     }
   }
@@ -220,6 +228,7 @@ function App() {
         submitBtnText={submitAddBtnText}
         handleChangeAvatarInput={handleChangeAvatarInput}
         isValid={isValid}
+        isSbmtBtnActiv={isSbmtBtnActiv}
         validationMessage={validationMessage}
         />
       <AddPlacePopup
