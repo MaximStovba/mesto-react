@@ -5,25 +5,23 @@ import PopupWithForm from './PopupWithForm';
 import InputAddForm from './InputAddForm';
 
 
-function AddPlacePopup({isOpen, onClose, onAddPlace, submitBtnText}) {
+function AddPlacePopup({
+    isOpen,
+    onClose,
+    onAddPlace,
+    submitBtnText,
+    handleChangePlace,
+    handleChangeUrl,
+    isPlaceValid,
+    isUrlValid,
+    validPlaceMessage,
+    validUrlMessage,
+    isSbmtBtnActiv,
+    }) {
 
-  // рефы
+  // рефы инпутов
   const placeRef = React.useRef();
   const urlRef = React.useRef();
-
-  // Стейт, в котором содержится значение инпута
-  // const [place, setPlace] = React.useState('');
-  // const [url, setUrl] = React.useState('');
-
-  // Обработчик изменения инпута обновляет стейт
-  //function handleChangePlace(e) {
-    // setPlace(e.target.value);
-  //}
-
-  // Обработчик изменения инпута обновляет стейт
-  // function handleChangeUrl(e) {
-    // setUrl(e.target.value);
-  //}
 
   // Обработчик сабмита формы
   function handleSubmit(e) {
@@ -45,13 +43,19 @@ function AddPlacePopup({isOpen, onClose, onAddPlace, submitBtnText}) {
       children={<InputAddForm
         placeRef={placeRef}
         urlRef={urlRef}
-      //  handleChangePlace={handleChangePlace}
-      //  handleChangeUrl={handleChangeUrl}
+        handleChangePlace={handleChangePlace}
+        handleChangeUrl={handleChangeUrl}
+        isPlaceValid={isPlaceValid}
+        isUrlValid={isUrlValid}
+        validPlaceMessage={validPlaceMessage}
+        validUrlMessage={validUrlMessage}
         />}
       btnText={submitBtnText}
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleSubmit} />
+      onSubmit={handleSubmit}
+      isSbmtBtnActiv={isSbmtBtnActiv}
+      />
   );
 }
 

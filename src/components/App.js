@@ -82,6 +82,8 @@ function App() {
   const [isAvatarValid, setIsAvatarValid] = React.useState(false); // аватар
   const [isNameValid, setIsNameValid] = React.useState(false); // имя пользователя
   const [isDescriptionValid, setIsDescriptionValid] = React.useState(false); // описание пользователя
+  const [isPlaceValid, setIsPlaceValid] = React.useState(false);
+  const [isUrlValid, setIsUrlValid] = React.useState(false);
 
   // переменная состояния кнопки сабмита
   const [isSbmtBtnActiv, setIsSbmtBtnActiv] = React.useState(false); // активность
@@ -89,6 +91,10 @@ function App() {
   const [validationMessage, setValidationMessage] = React.useState('Введите данные');
   const [validNameMessage, setValidNameMessage] = React.useState('Введите данные');
   const [validDescriptionMessage, setValidDescriptionMessage] = React.useState('Введите данные');
+  const [validPlaceMessage, setValidPlaceMessage] = React.useState('Введите данные');
+  const [validUrlMessage, setValidUrlMessage] = React.useState('Введите данные');
+
+
 
   // получаем информацию о пользователе
   React.useEffect(() => {
@@ -120,7 +126,13 @@ function App() {
 
   // обработчик открытия попапа "добавления новой карточки"
   function handleAddPlaceClick() {
+    // открываем попап
     setIsAddPlacePopupOpen(true);
+    // скрываем ошибки валидации при открытии
+    setIsPlaceValid(true);
+    setIsUrlValid(true);
+    // делаем кнопку сабмита неактивной при открытии
+    setIsSbmtBtnActiv(false);
   }
 
   // обработчик открытия попапа "смены аватара"
@@ -214,6 +226,28 @@ function App() {
       setValidDescriptionMessage(e.target.validationMessage);
     }
   }
+  // Обработчик изменения инпута "места"
+  function handleChangePlace(e) {
+    if (e.target.validity.valid) {
+      setIsPlaceValid(true);
+      setIsSbmtBtnActiv(true);
+    } else {
+      setIsPlaceValid(false);
+      setIsSbmtBtnActiv(false);
+      setValidPlaceMessage(e.target.validationMessage);
+    }
+  }
+  // Обработчик изменения инпута "ссылки"
+  function handleChangeUrl(e) {
+    if (e.target.validity.valid) {
+      setIsUrlValid(true);
+      setIsSbmtBtnActiv(true);
+    } else {
+      setIsUrlValid(false);
+      setIsSbmtBtnActiv(false);
+      setValidUrlMessage(e.target.validationMessage);
+    }
+  }
   // ------------- валидация полей ввода форм -------------------
 
   // обработчик добавления новой карточки
@@ -276,6 +310,13 @@ function App() {
         onClose={closeAllPopups}
         onAddPlace={handleAddPlace}
         submitBtnText={submitCreateBtnText}
+        isSbmtBtnActiv={isSbmtBtnActiv}
+        handleChangePlace={handleChangePlace}
+        handleChangeUrl={handleChangeUrl}
+        isPlaceValid={isPlaceValid}
+        isUrlValid={isUrlValid}
+        validPlaceMessage={validPlaceMessage}
+        validUrlMessage={validUrlMessage}
         />
       <PopupWithForm
         name="del"

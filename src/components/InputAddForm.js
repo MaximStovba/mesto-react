@@ -5,13 +5,17 @@ import React from 'react';
 function InputAddForm({
   placeRef,
   urlRef,
-  // handleChangePlace,
-  // handleChangeUrl,
+  handleChangePlace,
+  handleChangeUrl,
+  isPlaceValid,
+  isUrlValid,
+  validPlaceMessage,
+  validUrlMessage,
   }) {
   return (
     <>
       <input ref={placeRef} type="text"
-        // onChange={handleChangePlace}
+        onChange={handleChangePlace}
         name="place"
         placeholder="Название"
         id="place-input"
@@ -21,10 +25,11 @@ function InputAddForm({
         required
         />
       <span
-        className="popup__text-error popup__text-error_active"
-        id="place-input-error">Вы пропустили это поле.</span>
+        //className="popup__text-error popup__text-error_active"
+        className={`popup__text-error ${isPlaceValid ? '' : 'popup__text-error_active'}`}
+        id="place-input-error">{validPlaceMessage}</span>
       <input ref={urlRef} type="text"
-        // onChange={handleChangeUrl}
+        onChange={handleChangeUrl}
         name="url"
         placeholder="Ссылка на картинку"
         id="url-input"
@@ -33,8 +38,9 @@ function InputAddForm({
         pattern="^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?$"
         />
       <span
-        className="popup__text-error popup__text-error_active"
-        id="url-input-error">Введите адрес сайта.</span>
+        //className="popup__text-error popup__text-error_active"
+        className={`popup__text-error ${isUrlValid ? '' : 'popup__text-error_active'}`}
+        id="url-input-error">{validUrlMessage}</span>
     </>
   );
 }
