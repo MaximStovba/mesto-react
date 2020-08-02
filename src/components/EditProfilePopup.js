@@ -19,7 +19,6 @@ function EditProfilePopup({
     handleChangeProfileName,
     handleChangeProfileDescription,
     isSbmtBtnActiv,
-    submitBtnRef,
     }) {
 
     // Стейт, в котором содержится значение инпута
@@ -78,7 +77,7 @@ function EditProfilePopup({
       onClose={onClose}
       onSubmit={handleSubmit}
       isSbmtBtnActiv={isSbmtBtnActiv}
-      submitBtnRef={submitBtnRef} />
+      />
   );
 }
 

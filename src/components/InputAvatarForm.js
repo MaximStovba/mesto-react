@@ -6,7 +6,8 @@ function InputAvatarForm({
   avatarRef,
   isValid,
   validationMessage,
-  handleChangeAvatarInput}) {
+  handleChangeAvatarInput,
+  }) {
 
   return (
     <>

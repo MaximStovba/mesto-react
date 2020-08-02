@@ -6,7 +6,7 @@ function InputAddForm({
   placeRef,
   urlRef,
   // handleChangePlace,
-  // handleChangeUrl
+  // handleChangeUrl,
   }) {
   return (
     <>
@@ -20,7 +20,9 @@ function InputAddForm({
         maxLength="30"
         required
         />
-      <span className="popup__text-error popup__text-error_active" id="place-input-error">Вы пропустили это поле.</span>
+      <span
+        className="popup__text-error popup__text-error_active"
+        id="place-input-error">Вы пропустили это поле.</span>
       <input ref={urlRef} type="text"
         // onChange={handleChangeUrl}
         name="url"
@@ -30,7 +32,9 @@ function InputAddForm({
         required
         pattern="^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?$"
         />
-      <span className="popup__text-error popup__text-error_active" id="url-input-error">Введите адрес сайта.</span>
+      <span
+        className="popup__text-error popup__text-error_active"
+        id="url-input-error">Введите адрес сайта.</span>
     </>
   );
 }

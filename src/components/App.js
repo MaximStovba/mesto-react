@@ -84,13 +84,11 @@ function App() {
   const [isDescriptionValid, setIsDescriptionValid] = React.useState(false); // описание пользователя
 
   // переменная состояния кнопки сабмита
-  const [isSbmtBtnActiv, setIsSbmtBtnActiv] = React.useState(false);
+  const [isSbmtBtnActiv, setIsSbmtBtnActiv] = React.useState(false); // активность
   // переменная состояния validationMessage
   const [validationMessage, setValidationMessage] = React.useState('Введите данные');
   const [validNameMessage, setValidNameMessage] = React.useState('Введите данные');
   const [validDescriptionMessage, setValidDescriptionMessage] = React.useState('Введите данные');
-  // реф кнопки сабмита форм
-  const submitBtnRef = React.useRef();
 
   // получаем информацию о пользователе
   React.useEffect(() => {
@@ -118,7 +116,6 @@ function App() {
     setIsDescriptionValid(true);
     // делаем кнопку сабмита активной при открытии
     setIsSbmtBtnActiv(true);
-    submitBtnRef.current.disabled = false;
   }
 
   // обработчик открытия попапа "добавления новой карточки"
@@ -134,7 +131,6 @@ function App() {
     setIsAvatarValid(true);
     // делаем кнопку сабмита неактивной
     setIsSbmtBtnActiv(false);
-    submitBtnRef.current.disabled = true;
   }
 
   // обработчик закрытия всех попапов
@@ -143,8 +139,6 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setSelectedCard(false);
-    // сбрасываем поля ввода формы при закрытии
-    if (e !== undefined) {e.target.parentElement.reset()}
   }
 
   // обработчик обновления информации о пользователе
@@ -187,42 +181,36 @@ function App() {
   }
 
   // ------------- валидация полей ввода форм -------------------
-  // Обработчик изменения инпута аватара
+  // Обработчик изменения инпута "аватара"
   function handleChangeAvatarInput(e) {
     if (e.target.validity.valid) {
       setIsAvatarValid(true);
       setIsSbmtBtnActiv(true);
-      submitBtnRef.current.disabled = false;
     } else {
       setIsAvatarValid(false);
       setIsSbmtBtnActiv(false);
-      submitBtnRef.current.disabled = true;
       setValidationMessage(e.target.validationMessage);
     }
   }
-  // Обработчик изменения инпута имени пользователя
+  // Обработчик изменения инпута "имени пользователя"
   function handleChangeProfileName(e) {
     if (e.target.validity.valid) {
       setIsNameValid(true);
       setIsSbmtBtnActiv(true);
-      submitBtnRef.current.disabled = false;
     } else {
       setIsNameValid(false);
       setIsSbmtBtnActiv(false);
-      submitBtnRef.current.disabled = true;
       setValidNameMessage(e.target.validationMessage);
     }
   }
-  // Обработчик изменения инпута описания пользователя
+  // Обработчик изменения инпута "описания пользователя"
   function handleChangeProfileDescription(e) {
     if (e.target.validity.valid) {
       setIsDescriptionValid(true);
       setIsSbmtBtnActiv(true);
-      submitBtnRef.current.disabled = false;
     } else {
       setIsDescriptionValid(false);
       setIsSbmtBtnActiv(false);
-      submitBtnRef.current.disabled = true;
       setValidDescriptionMessage(e.target.validationMessage);
     }
   }
@@ -266,7 +254,6 @@ function App() {
         onUpdateUser={handleUpdateUser}
         submitBtnText={submitAddBtnText}
         isSbmtBtnActiv={isSbmtBtnActiv}
-        submitBtnRef={submitBtnRef}
         handleChangeProfileName={handleChangeProfileName}
         handleChangeProfileDescription={handleChangeProfileDescription}
         isNameValid={isNameValid}
@@ -282,7 +269,6 @@ function App() {
         handleChangeAvatarInput={handleChangeAvatarInput}
         isValid={isAvatarValid}
         isSbmtBtnActiv={isSbmtBtnActiv}
-        submitBtnRef={submitBtnRef}
         validationMessage={validationMessage}
         />
       <AddPlacePopup

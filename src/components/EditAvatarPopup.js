@@ -11,7 +11,6 @@ function EditAvatarPopup({
     submitBtnText,
     isValid,
     isSbmtBtnActiv,
-    submitBtnRef,
     validationMessage,
     handleChangeAvatarInput
     }) {
@@ -46,7 +45,7 @@ function EditAvatarPopup({
       onClose={onClose}
       onSubmit={handleSubmit}
       isSbmtBtnActiv={isSbmtBtnActiv}
-      submitBtnRef={submitBtnRef} />
+      />
   );
 }
 
