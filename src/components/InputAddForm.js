@@ -20,7 +20,7 @@ function InputAddForm({
         placeholder="Название"
         id="place-input"
         className="popup__text popup__text_location_top popup__text_type_place"
-        minLength="1"
+        minLength="2"
         maxLength="30"
         required
         />

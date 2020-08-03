@@ -119,7 +119,9 @@ function App() {
     setIsEditProfilePopupOpen(true);
     // скрываем ошибки валидации при открытии
     setIsNameValid(true);
+    setValidNameMessage('|');
     setIsDescriptionValid(true);
+    setValidDescriptionMessage('|');
     // делаем кнопку сабмита активной при открытии
     setIsSbmtBtnActiv(true);
   }
@@ -128,9 +130,10 @@ function App() {
   function handleAddPlaceClick() {
     // открываем попап
     setIsAddPlacePopupOpen(true);
-    // скрываем ошибки валидации при открытии
-    setIsPlaceValid(true);
-    setIsUrlValid(true);
+    setIsPlaceValid(false);
+    setValidPlaceMessage('Введите данные');
+    setIsUrlValid(false);
+    setValidUrlMessage('Введите данные');
     // делаем кнопку сабмита неактивной при открытии
     setIsSbmtBtnActiv(false);
   }
@@ -204,14 +207,21 @@ function App() {
       setValidationMessage(e.target.validationMessage);
     }
   }
+  // -------- форма изменения профиля пользователя ----------
+  React.useEffect(() => {
+    if (isNameValid === true && isDescriptionValid === true) {
+      setIsSbmtBtnActiv(true);
+    } else {
+      setIsSbmtBtnActiv(false);
+    }
+  }, [isNameValid, isDescriptionValid]);
   // Обработчик изменения инпута "имени пользователя"
   function handleChangeProfileName(e) {
     if (e.target.validity.valid) {
       setIsNameValid(true);
-      setIsSbmtBtnActiv(true);
+      setValidNameMessage('|');
     } else {
       setIsNameValid(false);
-      setIsSbmtBtnActiv(false);
       setValidNameMessage(e.target.validationMessage);
     }
   }
@@ -219,21 +229,28 @@ function App() {
   function handleChangeProfileDescription(e) {
     if (e.target.validity.valid) {
       setIsDescriptionValid(true);
-      setIsSbmtBtnActiv(true);
+      setValidDescriptionMessage('|');
     } else {
       setIsDescriptionValid(false);
-      setIsSbmtBtnActiv(false);
       setValidDescriptionMessage(e.target.validationMessage);
     }
   }
+  // -------- форма создания новой карточки ----------
+  React.useEffect(() => {
+    if (isPlaceValid === true && isUrlValid === true) {
+      setIsSbmtBtnActiv(true);
+    } else {
+      setIsSbmtBtnActiv(false);
+    }
+  }, [isPlaceValid, isUrlValid]);
+
   // Обработчик изменения инпута "места"
   function handleChangePlace(e) {
     if (e.target.validity.valid) {
       setIsPlaceValid(true);
-      setIsSbmtBtnActiv(true);
+      setValidPlaceMessage('|');
     } else {
       setIsPlaceValid(false);
-      setIsSbmtBtnActiv(false);
       setValidPlaceMessage(e.target.validationMessage);
     }
   }
@@ -241,14 +258,13 @@ function App() {
   function handleChangeUrl(e) {
     if (e.target.validity.valid) {
       setIsUrlValid(true);
-      setIsSbmtBtnActiv(true);
+      setValidUrlMessage('|');
     } else {
       setIsUrlValid(false);
-      setIsSbmtBtnActiv(false);
       setValidUrlMessage(e.target.validationMessage);
     }
   }
-  // ------------- валидация полей ввода форм -------------------
+  // ------------- валидация полей ввода форм ---------------
 
   // обработчик добавления новой карточки
   function handleAddPlace(formData) {
