@@ -100,8 +100,11 @@ function App() {
   React.useEffect(() => {
     api.getUserInfo()
     .then((userInfo) => {
-      setCurrentUser(userInfo);
+      setCurrentUser(userInfo)
     })
+    .catch((err) => {
+      console.log('Ошибка. Запрос не выполнен: ', err);
+    });
   }, []);
 
   // обработчик клика по изображению карточки

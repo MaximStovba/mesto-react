@@ -45,7 +45,7 @@ function EditProfilePopup({
     React.useEffect(() => {
       setName(currentUser.name);
       setDescription(currentUser.about);
-    }, [currentUser, onClose]);
+    }, [currentUser]);
 
     // Обработчик сабмита формы
     function handleSubmit(e) {
