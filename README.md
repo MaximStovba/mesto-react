@@ -26,3 +26,4 @@
 ## Установка
 - `npm run start` — запуск версии для разработчика
 - `npm run build` — production сборка приложения
+- `npm run deploy` — deploy github pages
